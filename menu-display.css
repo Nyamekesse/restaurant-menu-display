@@ -67,7 +67,13 @@ section .wrapper {
     background-color: transparent;
     font-weight: 700;
     letter-spacing: .2rem;
+    transition: all .6s ease-in-out;
+    cursor: pointer;
 }
+.nav-btns button:hover {
+    background-color: #eeda6ce5;
+    color: #fff;
+} 
 .food-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -122,4 +128,5 @@ section .wrapper {
     font-size: 1.2rem;
     line-height: 1.8rem;
     color: #333;
+    font-weight: 500;
 }

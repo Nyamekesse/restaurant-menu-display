@@ -1,8 +1,8 @@
 const menu = [
     {
         id: 1,
-        title: "Local Shito",
-        category: "Breakfast",
+        title: "Butter Bread",
+        category: "breakfast",
         price: 20.0,
         img: "./images/img_3.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident",
@@ -10,7 +10,7 @@ const menu = [
     {
         id: 2,
         title: "Fufu & Soup",
-        category: "Supper",
+        category: "supper",
         price: 20.0,
         img: "./images/img_5.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationtio",
@@ -18,7 +18,7 @@ const menu = [
     {
         id: 3,
         title: "Gari & Beans",
-        category: "Lunch",
+        category: "lunch",
         price: 20.0,
         img: "./images/img_6.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationeo?",
@@ -26,7 +26,7 @@ const menu = [
     {
         id: 4,
         title: "Fried Rice",
-        category: "Lunch",
+        category: "lunch",
         price: 20.0,
         img: "./images/menu_1.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem",
@@ -34,7 +34,7 @@ const menu = [
     {
         id: 5,
         title: "Coca cola & Bread",
-        category: "Breakfast",
+        category: "dessert",
         price: 20.0,
         img: "./images/menu_2.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationemo?",
@@ -42,7 +42,7 @@ const menu = [
     {
         id: 6,
         title: "Local Shito",
-        category: "Breakfast",
+        category: "breakfast",
         price: 20.0,
         img: "./images/img_3.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem",
@@ -50,7 +50,7 @@ const menu = [
     {
         id: 7,
         title: "Biscuit",
-        category: "Breakfast",
+        category: "dessert",
         price: 20.0,
         img: "./images/offer_1.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitatione?",
@@ -58,7 +58,7 @@ const menu = [
     {
         id: 8,
         title: "Pancake",
-        category: "Desert",
+        category: "desert",
         price: 20.0,
         img: "./images/offer_2.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitatione?",
@@ -66,7 +66,7 @@ const menu = [
     {
         id: 9,
         title: "Rice & Stew",
-        category: "Breakfast",
+        category: "breakfast",
         price: 20.0,
         img: "./images/offer_3.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitation?",
@@ -74,7 +74,7 @@ const menu = [
     {
         id: 10,
         title: "Banku & Okro",
-        category: "Supper",
+        category: "supper",
         price: 20.0,
         img: "./images/pexels-leigh-patrick-298217.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem?",
@@ -82,27 +82,53 @@ const menu = [
     {
         id: 11,
         title: "Ginger Bread",
-        category: "Breakfast",
+        category: "breakfast",
         price: 20.0,
         img: "./images/pexels-rachel-claire-5490919.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aper?",
     },
     {
         id: 12,
-        title: "Jollof",
-        category: "Breakfast",
+        title: "Jollof rice",
+        category: "supper",
         price: 20.0,
         img: "./images/post-1.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitati?",
     },
 ]
-const displayArea = document.querySelector('.food-info');
 
+const displayArea = document.querySelector('.food-info');
+const filterBtns = document.querySelectorAll('button');
 
 window.addEventListener('DOMContentLoaded', ()=> {
+    // CALLING THE DISPLAY MENU FUNCTION
+    displayMenu(menu);
+});
 
+// FILTERING THE MENU USING THE BUTTONS
+filterBtns.forEach((btn)=> {
+    btn.addEventListener('click', (e)=> {
+        // GETTING SPECIFIC CATEGORY FROM THE BUTTON CLICKED
+        let category = e.currentTarget.dataset.id;  
+        // USING THE FILTER METHOD TO GRAB AND CREATE NEW ARRAY WITH CATEGORY THE SAME AS SPECIFIED 
+        const menuCat = menu.filter((menuItems)=> {
+            if (menuItems.category === category) {
+                return menuItems;
+            };
+        });
+        if (category === 'all') {
+            displayMenu(menu);
+        }
+        else{
+            displayMenu(menuCat);
+        }
+    });
+
+});
+
+displayMenu = (menuList) => {
     // LOOPING OVER THE ARRAY USING THE MAP METHOD
-    let displayMenu = menu.map( item=> {
+    let displayMenu = menuList.map(item=> {
         // RETURNING A TEMPLATE WITH EACH FIXED VARIABLES FROM THE LOOPED ARRAY
         return `
             <div class="info-box">
@@ -124,8 +150,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
     // USING THE JOIN METHOD TO GET RID OF THE COMMAS IN ORDER TO RETURN THE TEMPLATE WITHOUT ANY COMMAS
     displayMenu = displayMenu.join('');
-    console.log(displayMenu);
 
     // INSERTING THE RETURNED HTML TEMPLATE INSIDE THE ACTUAL BODY PREFERRED
     displayArea.innerHTML = displayMenu;
-});
+}
