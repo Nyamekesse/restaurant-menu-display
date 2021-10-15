@@ -58,7 +58,7 @@ const menu = [
     {
         id: 8,
         title: "Pancake",
-        category: "desert",
+        category: "dessert",
         price: 20.0,
         img: "./images/offer_2.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitatione?",
@@ -94,38 +94,62 @@ const menu = [
         price: 20.0,
         img: "./images/post-1.jpg",
         desc: "loremLorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitationem provident ipsam perspiciatis laborum aperiam quod perferendis quae distinctio?Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos exercitati?",
-    },
-]
+    }
+];
 
 const displayArea = document.querySelector('.food-info');
-const filterBtns = document.querySelectorAll('button');
+const navButtons = document.querySelector('.nav-btns');
 
 window.addEventListener('DOMContentLoaded', ()=> {
     // CALLING THE DISPLAY MENU FUNCTION
     displayMenu(menu);
+
+    // USING THE REDUCE METHOD TO FILTER THE CATEGORIES, THIS MAKES SURE THAT IT RETURNS ARRAY OF UNIQUE CATEGORIES.
+    const showCat = menu.reduce((values, items)=> {
+        if(!values.includes(items.category)) {
+            values.push(items.category);
+        }
+        return values;
+    },['all']);
+    // CALLING THE DISPLAY BUTTON CATEGORY FUNCTION AND PASSING IN THE RETURNED ARRAY OF AVAILABLE CATEGORIES CONTAINED SHOWCAT
+    displayCategoryBtn(showCat);
 });
 
-// FILTERING THE MENU USING THE BUTTONS
-filterBtns.forEach((btn)=> {
-    btn.addEventListener('click', (e)=> {
-        // GETTING SPECIFIC CATEGORY FROM THE BUTTON CLICKED
-        let category = e.currentTarget.dataset.id;  
-        // USING THE FILTER METHOD TO GRAB AND CREATE NEW ARRAY WITH CATEGORY THE SAME AS SPECIFIED 
-        const menuCat = menu.filter((menuItems)=> {
-            if (menuItems.category === category) {
-                return menuItems;
-            };
-        });
-        if (category === 'all') {
-            displayMenu(menu);
-        }
-        else{
-            displayMenu(menuCat);
-        }
+// FUNCTION TO DYNAMICALLY DISPLAY THE CATEGORY BUTTONS UPON AVAILABLE CATEGORIES
+displayCategoryBtn = (availableBtn)=> {
+    let collect = availableBtn.map(btn=> {
+        return `<button data-id="${btn}"> ${btn} </button>`;
     });
+    collect = collect.join('');
+    navButtons.innerHTML = collect;
 
-});
+    // SELECTING ALL THE BUTTONS AFTER DYNAMICALLY ADDING THEM TO THE DOM
+    const filterBtns = document.querySelectorAll('button');
 
+    // FILTERING THE MENU USING THE BUTTONS
+    filterBtns.forEach((btn)=> {
+        btn.addEventListener('click', (e)=> {
+            // GETTING SPECIFIC CATEGORY FROM THE BUTTON CLICKED
+            let category = e.currentTarget.dataset.id;
+            console.log(category);  
+            // USING THE FILTER METHOD TO GRAB AND CREATE NEW ARRAY WITH CATEGORY THE SAME AS SPECIFIED 
+            const menuCat = menu.filter((menuItems)=> {
+                if (menuItems.category === category) {
+                    return menuItems;
+                };
+            });
+            if (category === 'all') {
+                displayMenu(menu);
+            }
+            else{
+                displayMenu(menuCat);
+            }
+        });
+    
+    });
+};
+
+// FUNCTION THAT WILL DISPLAY THE MENU LIST TO THE SCREEN
 displayMenu = (menuList) => {
     // LOOPING OVER THE ARRAY USING THE MAP METHOD
     let displayMenu = menuList.map(item=> {
@@ -148,7 +172,7 @@ displayMenu = (menuList) => {
         `
     });
 
-    // USING THE JOIN METHOD TO GET RID OF THE COMMAS IN ORDER TO RETURN THE TEMPLATE WITHOUT ANY COMMAS
+    // USING THE JOIN METHOD TO GET RID OF THE COMMAS(,) IN ORDER TO RETURN THE TEMPLATE WITHOUT ANY COMMAS
     displayMenu = displayMenu.join('');
 
     // INSERTING THE RETURNED HTML TEMPLATE INSIDE THE ACTUAL BODY PREFERRED

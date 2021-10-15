@@ -69,6 +69,7 @@ section .wrapper {
     letter-spacing: .2rem;
     transition: all .6s ease-in-out;
     cursor: pointer;
+    text-transform: capitalize;
 }
 .nav-btns button:hover {
     background-color: #eeda6ce5;
